@@ -9,9 +9,23 @@ all_words = ["aahed","aalii","aargh","aarti","abaca","abaci","abacs","abaft","ab
 
 with open('unigram_freq.csv', newline='') as csvfile:
     for row in csv.reader(csvfile):
-        if len(row[0]) == 5 and int(row[1]) > 99999:
+        if len(row[0]) == 5 and int(row[1]) > 1e6:
             words[row[0]] = int(row[1])
             r1_words.append(row[0])
+
+    for w in ans_words:
+        if w not in words:
+            words[w] = 1e9
+            r1_words.append(w)
+        else:
+            words[w] += 1e8
+
+    for w in all_words:
+        if w not in words:
+            words[w] = 1e6
+            r1_words.append(w)
+        else:
+            words[w] += 1e6
 
 print(len(words.keys()))
 
